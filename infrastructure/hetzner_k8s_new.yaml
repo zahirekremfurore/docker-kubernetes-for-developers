@@ -1,5 +1,5 @@
 ---
-hetzner_token: Dh6UaQZ7ZXrGIeujrmp2TN0IHyOM9c7PHhefV1uZOENYHx1FxPBzJMFH7BwPj23D
+hetzner_token: ... 
 cluster_name: training
 kubeconfig_path: "./kubeconfig"
 k3s_version: v1.33.4+k3s1
@@ -68,7 +68,7 @@ worker_node_pools:
   #     value: value1:NoSchedule
   - name: worker
     instance_type: cx22
-    instance_count: 3
+    instance_count: 1
     location: nbg1
     autoscaling:
       enabled: true

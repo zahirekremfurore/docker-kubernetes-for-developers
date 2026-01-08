@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - name: user-service
+        image: ghcr.io/huseyinbabal/user-service:latest
+        ports:
+        - containerPort: 8080
+        envFrom:
+          - configMapRef:
+              name: user-service-config
+
+        env:
+          - name: SPRING_DATASOURCE_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: database-secrets
+                key: mysql-user
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: database-secrets
+                key: mysql-password
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:mysql://mysql:3306/mydb
+          - name: JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: app-secrets
+                key: jwt-secret
+        volumeMounts:
+          - name: config-volume
+            mountPath: /app/config
+            readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: user-service-config
+            items:
+              - key: application.yaml
+                path: application.yaml
