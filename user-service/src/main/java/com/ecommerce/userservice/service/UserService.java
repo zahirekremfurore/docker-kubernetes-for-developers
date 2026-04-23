@@ -1,17 +1,20 @@
 package com.ecommerce.userservice.service;
 
-import com.ecommerce.userservice.dto.UserRegistrationDto;
-import com.ecommerce.userservice.dto.UserResponseDto;
-import com.ecommerce.userservice.model.User;
-import com.ecommerce.userservice.repository.UserRepository;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.ecommerce.userservice.dto.UserRegistrationDto;
+import com.ecommerce.userservice.dto.UserResponseDto;
+import com.ecommerce.userservice.model.User;
+import com.ecommerce.userservice.repository.UserRepository;
 
 @Service
 @Transactional
@@ -25,6 +28,8 @@ public class UserService {
 
     @Autowired
     private MessagePublisher messagePublisher;
+
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public UserResponseDto createUser(UserRegistrationDto registrationDto) {
         if (userRepository.existsByUsername(registrationDto.getUsername())) {
@@ -46,6 +51,7 @@ public class UserService {
         User savedUser = userRepository.save(user);
 
         messagePublisher.publishUserCreated(savedUser);
+        logger.info("User created with ID: {}", savedUser.getId());
 
         return convertToResponseDto(savedUser);
     }
@@ -75,12 +81,12 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         if (!user.getUsername().equals(updateDto.getUsername()) &&
-            userRepository.existsByUsername(updateDto.getUsername())) {
+                userRepository.existsByUsername(updateDto.getUsername())) {
             throw new RuntimeException("Username already exists");
         }
 
         if (!user.getEmail().equals(updateDto.getEmail()) &&
-            userRepository.existsByEmail(updateDto.getEmail())) {
+                userRepository.existsByEmail(updateDto.getEmail())) {
             throw new RuntimeException("Email already exists");
         }
 
@@ -95,6 +101,7 @@ public class UserService {
         }
 
         User savedUser = userRepository.save(user);
+        logger.info("User updated with ID: {}", savedUser.getId());
         return convertToResponseDto(savedUser);
     }
 
@@ -123,7 +130,6 @@ public class UserService {
                 user.getPhoneNumber(),
                 user.getIsActive(),
                 user.getCreatedAt(),
-                user.getUpdatedAt()
-        );
+                user.getUpdatedAt());
     }
 }
