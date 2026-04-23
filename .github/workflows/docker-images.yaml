@@ -3,8 +3,8 @@ name: Build Docker Images
 on:
   pull_request:
   push:
-    tags: 
-      - '*'
+    tags:
+      - "*"
     paths:
       - "product-service/**"
       - "user-service/**"
@@ -21,7 +21,12 @@ jobs:
   build:
     strategy:
       matrix:
-        dockerfile: ["product-service/Dockerfile","user-service/Dockerfile","order-service/Dockerfile"]
+        dockerfile:
+          [
+            "product-service/Dockerfile",
+            "user-service/Dockerfile",
+            "order-service/Dockerfile",
+          ]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -38,7 +43,8 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GH_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          # password: ${{ secrets.GH_TOKEN }}
 
       - name: Prepare build context
         id: context
@@ -55,7 +61,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ steps.context.outputs.name }}
+          images: ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ steps.context.outputs.name
+            }}
           tags: |
             type=sha,enable=${{ github.ref == format('refs/heads/{0}', 'master') }},event=branch,prefix=
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }},event=branch,prefix=
@@ -72,20 +79,3 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
             GITHUB_TOKEN=${{ secrets.GH_TOKEN }}
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
