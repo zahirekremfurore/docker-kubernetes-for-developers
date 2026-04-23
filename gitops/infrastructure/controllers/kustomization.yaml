@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - capacitor
+  - cert-manager
+  - cnpg
+  - external-secrets
+  - istio
+  - kiali
+  - kube-prometheus-stack
+  - mariadb-operator
+  - metallb
+  - tempo
+  - vault

@@ -11,4 +11,4 @@ patches:
   - path: user-service-values.yaml
     target:
       kind: HelmRelease
-      name: product-service
+      name: user-service

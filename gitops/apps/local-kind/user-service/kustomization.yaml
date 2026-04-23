@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - deployment.yaml
+  - service.yaml
+  - virtual-service.yaml
+  - database.yaml
+  - user-service-credentials-secret.yaml
+patches:
+  - path: database-patch.yaml
+    target:
+      kind: MariaDB
+      name: user-database

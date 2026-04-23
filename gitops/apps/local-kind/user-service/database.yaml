@@ -1,0 +1,28 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: user-database
+  namespace: user-system
+spec:
+  database: users
+  replicas: 3
+  replication:
+    enabled: true
+  port: 3306
+  storage:
+    size: 1Gi
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: User
+metadata:
+  name: user
+  namespace: user-system
+spec:
+  name: user
+  mariaDbRef:
+    name: user-database
+  maxUserConnections: 20
+  host: "%"
+  cleanupPolicy: Delete
+  requeueInterval: 10h
+  retryInterval: 30s

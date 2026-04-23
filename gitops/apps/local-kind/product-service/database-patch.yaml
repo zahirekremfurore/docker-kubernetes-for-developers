@@ -1,0 +1,13 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: product
+  namespace: product-system
+spec:
+  instances: 1
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+      secret:
+        name: product-app

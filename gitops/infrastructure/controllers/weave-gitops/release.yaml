@@ -1,0 +1,16 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ww-gitops
+  namespace: flux-system
+spec:
+  interval: 5m
+  chartRef:
+    kind: OCIRepository
+    name: ww-gitops
+    namespace: flux-system
+  values:
+    service:
+      type: ClusterIP
+    metrics:
+      enabled: true
