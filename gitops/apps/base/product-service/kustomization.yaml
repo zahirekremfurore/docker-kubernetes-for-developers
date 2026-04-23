@@ -10,6 +10,6 @@ resources:
 - image-repository.yaml
 - virtual-service.yaml
 images:
-- name: ghcr.io/huseyinbabal/product-service
-  newName: ghcr.io/huseyinbabal/product-service # {"$imagepolicy": "flux-system:product-service:name"}
-  newTag: 1.0.3 # {"$imagepolicy": "flux-system:product-service:tag"} 
+- name: ghcr.io/zahirekremfurore/product-service
+  newName: ghcr.io/zahirekremfurore/product-service # {"$imagepolicy": "flux-system:product-service:name"}
+  newTag: latest # {"$imagepolicy": "flux-system:product-service:tag"} 

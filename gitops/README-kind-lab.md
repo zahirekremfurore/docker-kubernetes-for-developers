@@ -14,6 +14,7 @@ This repository now includes a local Flux sync target at `gitops/clusters/local-
   - a local-friendly Istio gateway stack
 - `gitops/infrastructure/configs/local` contains local-only shared config.
 - `gitops/apps/local-kind` deploys `product-service` and `user-service` without Vault/ExternalSecret dependencies.
+- Container images are expected under `ghcr.io/zahirekremfurore/*`.
 
 ## Local apply flow
 

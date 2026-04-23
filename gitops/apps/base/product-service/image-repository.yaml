@@ -4,7 +4,5 @@ metadata:
   name: product-service
   namespace: flux-system
 spec:
-  image: ghcr.io/huseyinbabal/product-service
+  image: ghcr.io/zahirekremfurore/product-service
   interval: 1m
-  secretRef:
-    name: ghcr-pull-secret

@@ -42,7 +42,7 @@ spec:
         volumeMounts:
         - name: app-properties
           mountPath: /var/log
-        image: ghcr.io/huseyinbabal/user-service:1.0.0-rc.2
+        image: ghcr.io/zahirekremfurore/user-service:latest
         imagePullPolicy: IfNotPresent
         name: user-service
         resources:

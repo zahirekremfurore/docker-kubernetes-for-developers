@@ -4,7 +4,5 @@ metadata:
   name: user-service
   namespace: flux-system
 spec:
-  image: ghcr.io/huseyinbabal/user-service
+  image: ghcr.io/zahirekremfurore/user-service
   interval: 1m
-  secretRef:
-    name: ghcr-pull-secret

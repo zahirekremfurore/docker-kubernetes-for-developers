@@ -10,6 +10,10 @@ spec:
     name: ww-gitops
     namespace: flux-system
   values:
+    adminUser:
+      create: true
+      username: admin
+      passwordHash: "$2y$10$LKE3lknIXut2XEMW.XwqP.e3rBMN8vjMmXO07OJO3VW7gmxa7295u"
     service:
       type: ClusterIP
     metrics:
